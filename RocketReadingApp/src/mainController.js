@@ -87,8 +87,10 @@ var mainController = {
                 console.log("validateWords(): incorrectWordListArray after getting choice incorrect again - " + incorrectWordListArray);
                 myViewModelRR.displayTable(incorrectWordListArray);
                 
-                // All of the event listeners for the cells of the table should be removed - so that the user has to click the learn word button to proceed
-                // myViewModelRR.removeEventClick(); // This is not needed if the eventClickAdd() is not added in exitingLearnWord()
+                // If the user has to click the learn word function and the learn word sequence has to run before the player can have another go at choosing the correct word, then the following three lines should be un-commented and the call to the eventClickAdd() function should be commented out.
+                // myViewModelRR.removeEventClick();
+                // myViewModelRR.toggleLearnWord();
+                // myViewModelRR.addEventLearnWord();
                 myViewModelRR.eventClickAdd();
             };
 		};
@@ -114,6 +116,8 @@ var mainController = {
         "use strict";
 		rocketReadingModel.getCurrentGameData().setIncorrectWord(null);
 		myViewModelRR.toggleLearnWord();
+        // Display the table with the complete wordlist which was set when the player first started playing the game
+        myViewModelRR.displayTable(rocketReadingModel.getCurrentGameData().getCompleteWordList());
 	},
     
 	initialiseNextWord : function () {
@@ -126,7 +130,7 @@ var mainController = {
 		mainController.displayScore();
 
 		if (listArrayCount > 0) {
-            mainController.gameInitialise();
+            mainController.gameRefresh();
 			mainController.nextWord();
 		} else if (listArrayCount === 0) {
             mainController.finishGame();
@@ -268,8 +272,9 @@ var mainController = {
             completeWordList = rocketReadingModel.getCurrentGameData().getCompleteWordList();
         // The wordlist needs to be arranged in a random order
         completeWordList = this.randomiseArray(completeWordList);
-        // After the wordlist has been randomised, the complete word list needs to be repopulated. This is necessary because the complete word list may need to be used in validateWords()
-        mainController.resetCompleteWordList();
+        // After the wordlist has been randomised, the complete word list needs to be repopulated. This is necessary because the complete word list may need to be used in validateWords(). 
+        // mainController.resetCompleteWordList(); // No, instead the randomised array needs to be set as the completeWordList in the currentGameData object.
+        rocketReadingModel.getCurrentGameData().setCompleteWordList(completeWordList);
         // Set the other wordlist array as the word list for the current game
         rocketReadingModel.getCurrentGameData().passList(wordList);
         // Display the table with the randomised complete wordlist
@@ -414,7 +419,7 @@ var mainController = {
                 levelGame = rocketReadingModel.getMyPlayer().getLevelGameReached();
                 rocketReadingModel.getCurrentGameData().setCurrentLevel(rocketReadingModel.findLevelByNumber(levelGame[0]));
                 rocketReadingModel.getCurrentGameData().setGameAndWordList(rocketReadingModel.findGameByNumber(levelGame[1]));
-                mainController.gameInitialise();
+                mainController.gameRefresh();
                 // The game screen is displayed
                 myViewModelRR.showGameScreen();
                 // Ideally an introduction modal screen should be displayed when the game screen is first opened
@@ -484,6 +489,7 @@ var mainController = {
         rocketReadingModel.getCurrentGameData().setSavedLevelGame(null);
         // The system get the user's current game details and opens the particular screen
         mainController.gameInitialise();
+        mainController.gameRefresh();
         myViewModelRR.showGameScreen();
         // Ideally, when the user clicks the Continue button and returns to the saved game the modal screen should be displayed. And so, when the user clicks the Start link on the modal page the game timer should then start
         // The game timer is started again
@@ -503,9 +509,12 @@ var mainController = {
         rocketReadingModel.getCurrentGameData().setCurrentLevelGame(levelGame);
         // Set the complete word list as a copy of currentGameData.myGame.myWordList
         rocketReadingModel.getCurrentGameData().setCompleteWordList(completeWordList);
-        
         // The game screen is setup
         mainController.createTable();
+    },
+    
+    gameRefresh: function () {
+        "use strict";       
         mainController.displayMedalCounts();
         mainController.displayScore();
         mainController.displayWordsCompletedData();

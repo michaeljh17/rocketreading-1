@@ -10,8 +10,6 @@ var Player = function (newUser, newFirstName, newLastName, newSchool, newClassRo
     this.levelGameReached = newLevelGameReached || '';
     this.bonusGameReached = newBonusGameReached || '';
     this.pointsToPassLevel = newPointsToPassLevel || '';
-    this.currentGameData = {};
-    this.allGamesData = {};
     
     return this;
 };

@@ -83,9 +83,9 @@ var mainController = {
 		
     },
     
-    
+    // loading player data from the local storage. 
 	setPlayer: function (username) {
-    // This function is for loading player data from the local storage 
+    // This function is for 
         "use strict";
 		var playerData = storageController.getPlayer(username);
         console.log("mainController.setPlayer(): setPlayer() player's school - " + playerData.school);
@@ -319,8 +319,7 @@ var mainController = {
             level = rocketReadingModel.getCurrentGameData().getCurrentLevel(),
             levelNumber = level.getLevelNumber(),
             wordList = game.getWordList().slice(0),
-            levelGame = rocketReadingModel.getCurrentGameData().getCurrentLevelGame(),
-            playerName = rocketReadingModel.getMyPlayer().getUserName();
+            levelGame = rocketReadingModel.getCurrentGameData().getCurrentLevelGame();
         alert ("Game Finished! You completed Level "+ levelNumber + "Game " + gameNumber);
         // Stop the total game timer
         clearInterval(gameTimer);

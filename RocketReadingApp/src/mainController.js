@@ -730,7 +730,7 @@ var mainController = {
         "use strict";
         var currentWord = rocketReadingModel.getCurrentGameData().getCurrentWord(),
             characterArray = currentWord.split('');
-        myViewModelRR.displayWord(characterArray, "Comic Sans MS");
+        myViewModelRR.displayWord(characterArray, "Arial");
         learnWordCount = 4;
         myViewModelRR.updateCurrentWord(currentWord, 'learnWord', characterArray);
 	},

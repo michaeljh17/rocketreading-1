@@ -32,10 +32,6 @@ Player.prototype.setLevelGameReached = function () {
     }
 };
 
-Player.prototype.getPointsToPassLevel = function () {
-    return this.pointsToPassLevel;
-}
-
 Player.prototype.getUserName = function () {
     return this.userName;
 }

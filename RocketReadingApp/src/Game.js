@@ -18,11 +18,3 @@ Game.prototype.getWordList = function () {
 Game.prototype.getGameName = function () {
 	return this.gameName;
 };
-
-Game.prototype.setAccessTo = function (bool) {
-    this.accessible = bool;
-}
-
-Game.prototype.getAccessibility = function () {
-    return this.accessible;
-}

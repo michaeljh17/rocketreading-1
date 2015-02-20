@@ -25,10 +25,6 @@ Level.prototype.addGame = function (newName, newList, myLevelName, newGameNumber
     /*localStorage.setItem(this.name, JSON.stringify(this));*/
 };
 
-Level.prototype.getAllGames = function () {
-    return this.allMyGames;
-}
-
 Level.prototype.setAvatar = function (avatar) {
 	this.myAvatar = avatar;
 };
@@ -47,12 +43,4 @@ Level.prototype.getDescription = function () {
 
 Level.prototype.getMyLevels = function () {
 	return this.allMyGames;
-};
-
-Level.prototype.setAccessTo = function (bool) {
-    this.accessible = bool;
-};
-
-Level.prototype.getAccessibility = function () {
-    return this.accessible;
 };
